@@ -1,0 +1,902 @@
+[
+  {
+    "id": 1,
+    "author": {
+      "name": "김개발",
+      "username": "kimdev",
+      "profileImage": "https://picsum.photos/40/40?random=1",
+      "verified": true
+    },
+    "content": "오늘 React 18의 새로운 기능들을 공부했습니다! Concurrent Features가 정말 흥미롭네요 🚀 #React #개발자",
+    "images": ["https://picsum.photos/500/300?random=1"],
+    "createdAt": "2024-01-15T10:30:00Z",
+    "likes": 42,
+    "retweets": 12,
+    "comments": 8,
+    "isLiked": false,
+    "isRetweeted": false,
+    "isBookmarked": true
+  },
+  {
+    "id": 2,
+    "author": {
+      "name": "이디자인",
+      "username": "leedesign",
+      "profileImage": "https://picsum.photos/40/40?random=2",
+      "verified": false
+    },
+    "content": "새로운 디자인 시스템을 만들고 있어요. 일관성 있는 컴포넌트 라이브러리의 중요성을 다시 한번 느낍니다 ✨",
+    "images": [],
+    "createdAt": "2024-01-15T09:15:00Z",
+    "likes": 28,
+    "retweets": 5,
+    "comments": 3,
+    "isLiked": true,
+    "isRetweeted": false,
+    "isBookmarked": false
+  },
+  {
+    "id": 3,
+    "author": {
+      "name": "박프론트",
+      "username": "parkfront",
+      "profileImage": "https://picsum.photos/40/40?random=3",
+      "verified": true
+    },
+    "content": "TypeScript 5.0 업데이트 너무 좋네요! Decorators가 드디어 안정화되었습니다 🎉",
+    "images": ["https://picsum.photos/500/300?random=3", "https://picsum.photos/500/300?random=4"],
+    "createdAt": "2024-01-15T08:45:00Z",
+    "likes": 156,
+    "retweets": 45,
+    "comments": 23,
+    "isLiked": false,
+    "isRetweeted": false,
+    "isBookmarked": false
+  },
+  {
+    "id": 4,
+    "author": {
+      "name": "최백엔드",
+      "username": "choibackend",
+      "profileImage": "https://picsum.photos/40/40?random=4",
+      "verified": false
+    },
+    "content": "Node.js 성능 최적화 팁 공유합니다! 메모리 누수 찾는 법부터 클러스터링까지 💪",
+    "images": ["https://picsum.photos/500/300?random=5"],
+    "createdAt": "2024-01-15T07:20:00Z",
+    "likes": 89,
+    "retweets": 34,
+    "comments": 12,
+    "isLiked": true,
+    "isRetweeted": true,
+    "isBookmarked": false
+  },
+  {
+    "id": 5,
+    "author": {
+      "name": "정풀스택",
+      "username": "jungfullstack",
+      "profileImage": "https://picsum.photos/40/40?random=5",
+      "verified": true
+    },
+    "content": "Next.js 14 App Router로 마이그레이션 완료! Server Components 짱이에요 🔥",
+    "images": [],
+    "createdAt": "2024-01-14T23:10:00Z",
+    "likes": 203,
+    "retweets": 67,
+    "comments": 45,
+    "isLiked": false,
+    "isRetweeted": false,
+    "isBookmarked": false
+  },
+  {
+    "id": 6,
+    "author": {
+      "name": "윤모바일",
+      "username": "yoonmobile",
+      "profileImage": "https://picsum.photos/40/40?random=6",
+      "verified": false
+    },
+    "content": "React Native로 만든 첫 앱이 스토어에 올라갔어요! 감격스럽습니다 😭",
+    "images": ["https://picsum.photos/500/300?random=6"],
+    "createdAt": "2024-01-14T22:30:00Z",
+    "likes": 312,
+    "retweets": 89,
+    "comments": 56,
+    "isLiked": true,
+    "isRetweeted": false,
+    "isBookmarked": false
+  },
+  {
+    "id": 7,
+    "author": {
+      "name": "강데브옵스",
+      "username": "kangdevops",
+      "profileImage": "https://picsum.photos/40/40?random=7",
+      "verified": true
+    },
+    "content": "Docker와 Kubernetes 조합으로 배포 자동화 구축 완료! CI/CD 파이프라인이 이렇게 편할 줄이야 🚢",
+    "images": ["https://picsum.photos/500/300?random=7", "https://picsum.photos/500/300?random=8"],
+    "createdAt": "2024-01-14T20:15:00Z",
+    "likes": 178,
+    "retweets": 52,
+    "comments": 34,
+    "isLiked": false,
+    "isRetweeted": true,
+    "isBookmarked": true
+  },
+  {
+    "id": 8,
+    "author": {
+      "name": "임UI",
+      "username": "limui",
+      "profileImage": "https://picsum.photos/40/40?random=8",
+      "verified": false
+    },
+    "content": "Figma에서 React 컴포넌트로 자동 변환하는 플러그인 만들었어요! 개발 속도가 2배는 빨라졌습니다 ⚡",
+    "images": [],
+    "createdAt": "2024-01-14T18:45:00Z",
+    "likes": 421,
+    "retweets": 156,
+    "comments": 78,
+    "isLiked": true,
+    "isRetweeted": true,
+    "isBookmarked": false
+  },
+  {
+    "id": 9,
+    "author": {
+      "name": "송테스터",
+      "username": "songtester",
+      "profileImage": "https://picsum.photos/40/40?random=9",
+      "verified": false
+    },
+    "content": "Jest와 Testing Library로 테스트 커버리지 90% 달성! 버그가 확실히 줄었어요 ✅",
+    "images": ["https://picsum.photos/500/300?random=9"],
+    "createdAt": "2024-01-14T17:20:00Z",
+    "likes": 95,
+    "retweets": 28,
+    "comments": 15,
+    "isLiked": false,
+    "isRetweeted": false,
+    "isBookmarked": false
+  },
+  {
+    "id": 10,
+    "author": {
+      "name": "한데이터",
+      "username": "handata",
+      "profileImage": "https://picsum.photos/40/40?random=10",
+      "verified": true
+    },
+    "content": "PostgreSQL 쿼리 최적화로 응답 속도 10배 개선! 인덱스의 중요성... 📊",
+    "images": ["https://picsum.photos/500/300?random=10"],
+    "createdAt": "2024-01-14T15:30:00Z",
+    "likes": 267,
+    "retweets": 73,
+    "comments": 42,
+    "isLiked": true,
+    "isRetweeted": false,
+    "isBookmarked": false
+  },
+  {
+    "id": 11,
+    "author": {
+      "name": "오보안",
+      "username": "ohsecurity",
+      "profileImage": "https://picsum.photos/40/40?random=11",
+      "verified": true
+    },
+    "content": "OWASP Top 10 보안 취약점 정리했습니다. 개발자라면 꼭 알아야 할 내용들! 🔒",
+    "images": [],
+    "createdAt": "2024-01-14T14:10:00Z",
+    "likes": 534,
+    "retweets": 201,
+    "comments": 89,
+    "isLiked": false,
+    "isRetweeted": true,
+    "isBookmarked": false
+  },
+  {
+    "id": 12,
+    "author": {
+      "name": "서클라우드",
+      "username": "seocloud",
+      "profileImage": "https://picsum.photos/40/40?random=12",
+      "verified": false
+    },
+    "content": "AWS Lambda로 서버리스 아키텍처 구축! 비용이 70% 절감됐어요 💰",
+    "images": ["https://picsum.photos/500/300?random=11"],
+    "createdAt": "2024-01-14T12:40:00Z",
+    "likes": 189,
+    "retweets": 56,
+    "comments": 31,
+    "isLiked": true,
+    "isRetweeted": false,
+    "isBookmarked": false
+  },
+  {
+    "id": 13,
+    "author": {
+      "name": "권알고리즘",
+      "username": "kwonalgo",
+      "profileImage": "https://picsum.photos/40/40?random=13",
+      "verified": false
+    },
+    "content": "오늘의 코딩 테스트 문제 풀이! 동적 프로그래밍은 역시 어렵네요 😅 #알고리즘",
+    "images": ["https://picsum.photos/500/300?random=12"],
+    "createdAt": "2024-01-14T11:15:00Z",
+    "likes": 76,
+    "retweets": 19,
+    "comments": 24,
+    "isLiked": false,
+    "isRetweeted": false,
+    "isBookmarked": false
+  },
+  {
+    "id": 14,
+    "author": {
+      "name": "남AI",
+      "username": "namai",
+      "profileImage": "https://picsum.photos/40/40?random=14",
+      "verified": true
+    },
+    "content": "ChatGPT API를 활용한 챗봇 개발 완료! AI의 시대가 정말 왔네요 🤖",
+    "images": ["https://picsum.photos/500/300?random=13", "https://picsum.photos/500/300?random=14"],
+    "createdAt": "2024-01-14T09:50:00Z",
+    "likes": 623,
+    "retweets": 234,
+    "comments": 112,
+    "isLiked": true,
+    "isRetweeted": true,
+    "isBookmarked": false
+  },
+  {
+    "id": 15,
+    "author": {
+      "name": "배웹",
+      "username": "baeweb",
+      "profileImage": "https://picsum.photos/40/40?random=15",
+      "verified": false
+    },
+    "content": "웹 접근성 개선 작업 중입니다. 모든 사용자를 위한 웹이 되어야죠! ♿",
+    "images": [],
+    "createdAt": "2024-01-14T08:20:00Z",
+    "likes": 145,
+    "retweets": 41,
+    "comments": 19,
+    "isLiked": false,
+    "isRetweeted": false,
+    "isBookmarked": false
+  },
+  {
+    "id": 16,
+    "author": {
+      "name": "황성능",
+      "username": "hwangperf",
+      "profileImage": "https://picsum.photos/40/40?random=16",
+      "verified": true
+    },
+    "content": "Lighthouse 점수 100점 달성! 성능 최적화의 끝은 어디인가... 🎯",
+    "images": ["https://picsum.photos/500/300?random=15"],
+    "createdAt": "2024-01-13T23:45:00Z",
+    "likes": 389,
+    "retweets": 98,
+    "comments": 67,
+    "isLiked": true,
+    "isRetweeted": false,
+    "isBookmarked": true
+  },
+  {
+    "id": 17,
+    "author": {
+      "name": "문게임",
+      "username": "moongame",
+      "profileImage": "https://picsum.photos/40/40?random=17",
+      "verified": false
+    },
+    "content": "Unity에서 React로 갈아탔습니다. 웹 개발도 재밌네요! 🎮➡️🌐",
+    "images": [],
+    "createdAt": "2024-01-13T21:30:00Z",
+    "likes": 234,
+    "retweets": 67,
+    "comments": 45,
+    "isLiked": false,
+    "isRetweeted": false,
+    "isBookmarked": false
+  },
+  {
+    "id": 18,
+    "author": {
+      "name": "양블록체인",
+      "username": "yangblockchain",
+      "profileImage": "https://picsum.photos/40/40?random=18",
+      "verified": true
+    },
+    "content": "Web3 프로젝트 시작했습니다! 스마트 컨트랙트 개발이 생각보다 복잡하네요 ⛓️",
+    "images": ["https://picsum.photos/500/300?random=16"],
+    "createdAt": "2024-01-13T19:15:00Z",
+    "likes": 456,
+    "retweets": 134,
+    "comments": 89,
+    "isLiked": true,
+    "isRetweeted": true,
+    "isBookmarked": false
+  },
+  {
+    "id": 19,
+    "author": {
+      "name": "홍리팩토링",
+      "username": "hongrefactor",
+      "profileImage": "https://picsum.photos/40/40?random=19",
+      "verified": false
+    },
+    "content": "레거시 코드 리팩토링 6개월 만에 완료... 눈물 나네요 😭 Clean Code의 중요성!",
+    "images": [],
+    "createdAt": "2024-01-13T17:40:00Z",
+    "likes": 512,
+    "retweets": 178,
+    "comments": 94,
+    "isLiked": false,
+    "isRetweeted": false,
+    "isBookmarked": false
+  },
+  {
+    "id": 20,
+    "author": {
+      "name": "노멘토",
+      "username": "nohmento",
+      "profileImage": "https://picsum.photos/40/40?random=20",
+      "verified": true
+    },
+    "content": "신입 개발자분들께 드리는 조언: 기본기가 가장 중요합니다! 알고리즘, 자료구조, 네트워크... 📚",
+    "images": ["https://picsum.photos/500/300?random=17"],
+    "createdAt": "2024-01-13T15:20:00Z",
+    "likes": 892,
+    "retweets": 321,
+    "comments": 156,
+    "isLiked": true,
+    "isRetweeted": true,
+    "isBookmarked": true
+  },
+  {
+    "id": 21,
+    "author": {
+      "name": "구인턴",
+      "username": "koointern",
+      "profileImage": "https://picsum.photos/40/40?random=21",
+      "verified": false
+    },
+    "content": "첫 PR이 머지됐어요! 🎉 오픈소스 기여 너무 뿌듯합니다!",
+    "images": ["https://picsum.photos/500/300?random=18"],
+    "createdAt": "2024-01-13T13:50:00Z",
+    "likes": 678,
+    "retweets": 89,
+    "comments": 123,
+    "isLiked": false,
+    "isRetweeted": false,
+    "isBookmarked": false
+  },
+  {
+    "id": 22,
+    "author": {
+      "name": "유코드리뷰",
+      "username": "yoocodereview",
+      "profileImage": "https://picsum.photos/40/40?random=22",
+      "verified": true
+    },
+    "content": "코드 리뷰 문화의 중요성! 서로 배우고 성장하는 팀이 되어가고 있습니다 👥",
+    "images": [],
+    "createdAt": "2024-01-13T12:10:00Z",
+    "likes": 345,
+    "retweets": 112,
+    "comments": 67,
+    "isLiked": true,
+    "isRetweeted": false,
+    "isBookmarked": false
+  },
+  {
+    "id": 23,
+    "author": {
+      "name": "주스타트업",
+      "username": "joostartup",
+      "profileImage": "https://picsum.photos/40/40?random=23",
+      "verified": false
+    },
+    "content": "스타트업 CTO로서 첫 기술 스택 선정 완료! 긴장되면서도 설레네요 🚀",
+    "images": ["https://picsum.photos/500/300?random=19", "https://picsum.photos/500/300?random=20"],
+    "createdAt": "2024-01-13T10:30:00Z",
+    "likes": 234,
+    "retweets": 78,
+    "comments": 56,
+    "isLiked": false,
+    "isRetweeted": true,
+    "isBookmarked": false
+  },
+  {
+    "id": 24,
+    "author": {
+      "name": "허애자일",
+      "username": "heoagile",
+      "profileImage": "https://picsum.photos/40/40?random=24",
+      "verified": false
+    },
+    "content": "스크럼 방식으로 개발 프로세스 개선! 생산성이 눈에 띄게 올랐어요 📈",
+    "images": [],
+    "createdAt": "2024-01-13T08:45:00Z",
+    "likes": 189,
+    "retweets": 45,
+    "comments": 28,
+    "isLiked": true,
+    "isRetweeted": false,
+    "isBookmarked": false
+  },
+  {
+    "id": 25,
+    "author": {
+      "name": "표마이크로서비스",
+      "username": "pyomicro",
+      "profileImage": "https://picsum.photos/40/40?random=25",
+      "verified": true
+    },
+    "content": "모놀리식에서 마이크로서비스로 전환 완료! 배포가 정말 편해졌습니다 🏗️",
+    "images": ["https://picsum.photos/500/300?random=21"],
+    "createdAt": "2024-01-12T23:20:00Z",
+    "likes": 421,
+    "retweets": 156,
+    "comments": 89,
+    "isLiked": false,
+    "isRetweeted": false,
+    "isBookmarked": false
+  },
+  {
+    "id": 26,
+    "author": {
+      "name": "신GraphQL",
+      "username": "shingraphql",
+      "profileImage": "https://picsum.photos/40/40?random=26",
+      "verified": false
+    },
+    "content": "REST API에서 GraphQL로 전환했어요. 오버페칭 문제가 말끔히 해결됐습니다! ✨",
+    "images": [],
+    "createdAt": "2024-01-12T21:40:00Z",
+    "likes": 298,
+    "retweets": 89,
+    "comments": 52,
+    "isLiked": true,
+    "isRetweeted": true,
+    "isBookmarked": false
+  },
+  {
+    "id": 27,
+    "author": {
+      "name": "차Redis",
+      "username": "charedis",
+      "profileImage": "https://picsum.photos/40/40?random=27",
+      "verified": true
+    },
+    "content": "Redis 캐싱 전략으로 DB 부하 80% 감소! 인프라 비용도 절감했어요 💾",
+    "images": ["https://picsum.photos/500/300?random=22"],
+    "createdAt": "2024-01-12T19:15:00Z",
+    "likes": 567,
+    "retweets": 198,
+    "comments": 76,
+    "isLiked": false,
+    "isRetweeted": false,
+    "isBookmarked": false
+  },
+  {
+    "id": 28,
+    "author": {
+      "name": "최모니터링",
+      "username": "choimonitor",
+      "profileImage": "https://picsum.photos/40/40?random=28",
+      "verified": false
+    },
+    "content": "Prometheus + Grafana로 모니터링 시스템 구축! 장애 대응 속도가 빨라졌어요 📊",
+    "images": ["https://picsum.photos/500/300?random=23", "https://picsum.photos/500/300?random=24"],
+    "createdAt": "2024-01-12T17:30:00Z",
+    "likes": 312,
+    "retweets": 98,
+    "comments": 43,
+    "isLiked": true,
+    "isRetweeted": false,
+    "isBookmarked": false
+  },
+  {
+    "id": 29,
+    "author": {
+      "name": "천문서",
+      "username": "cheondocs",
+      "profileImage": "https://picsum.photos/40/40?random=29",
+      "verified": false
+    },
+    "content": "기술 문서 작성의 중요성을 다시 한번 느낍니다. 6개월 후의 나를 위해! 📝",
+    "images": [],
+    "createdAt": "2024-01-12T15:50:00Z",
+    "likes": 445,
+    "retweets": 134,
+    "comments": 67,
+    "isLiked": false,
+    "isRetweeted": true,
+    "isBookmarked": false
+  },
+  {
+    "id": 30,
+    "author": {
+      "name": "곽멘탈",
+      "username": "kwakmental",
+      "profileImage": "https://picsum.photos/40/40?random=30",
+      "verified": true
+    },
+    "content": "번아웃 극복하고 돌아왔습니다. 개발자 여러분, 휴식도 업무의 일부입니다! 🌴",
+    "images": ["https://picsum.photos/500/300?random=25"],
+    "createdAt": "2024-01-12T14:10:00Z",
+    "likes": 1234,
+    "retweets": 456,
+    "comments": 234,
+    "isLiked": true,
+    "isRetweeted": true,
+    "isBookmarked": false
+  },
+  {
+    "id": 31,
+    "author": {
+      "name": "진부팀장",
+      "username": "jinteamlead",
+      "profileImage": "https://picsum.photos/40/40?random=31",
+      "verified": false
+    },
+    "content": "팀 빌딩의 중요성! 좋은 동료들과 함께하니 어려운 프로젝트도 즐겁습니다 👨‍👩‍👧‍👦",
+    "images": [],
+    "createdAt": "2024-01-12T12:30:00Z",
+    "likes": 567,
+    "retweets": 167,
+    "comments": 89,
+    "isLiked": false,
+    "isRetweeted": false,
+    "isBookmarked": false
+  },
+  {
+    "id": 32,
+    "author": {
+      "name": "엄베타테스터",
+      "username": "eombeta",
+      "profileImage": "https://picsum.photos/40/40?random=32",
+      "verified": false
+    },
+    "content": "베타 테스트 피드백이 정말 소중합니다. 사용자 중심 개발의 중요성! 🎯",
+    "images": ["https://picsum.photos/500/300?random=26"],
+    "createdAt": "2024-01-12T10:45:00Z",
+    "likes": 234,
+    "retweets": 67,
+    "comments": 34,
+    "isLiked": true,
+    "isRetweeted": false,
+    "isBookmarked": false
+  },
+  {
+    "id": 33,
+    "author": {
+      "name": "방라이브러리",
+      "username": "banglibrary",
+      "profileImage": "https://picsum.photos/40/40?random=33",
+      "verified": true
+    },
+    "content": "첫 NPM 패키지 배포 완료! 벌써 100개 다운로드 감사합니다 📦",
+    "images": ["https://picsum.photos/500/300?random=27"],
+    "createdAt": "2024-01-12T08:20:00Z",
+    "likes": 789,
+    "retweets": 234,
+    "comments": 112,
+    "isLiked": false,
+    "isRetweeted": true,
+    "isBookmarked": true
+  },
+  {
+    "id": 34,
+    "author": {
+      "name": "소코딩코치",
+      "username": "sohcoach",
+      "profileImage": "https://picsum.photos/40/40?random=34",
+      "verified": false
+    },
+    "content": "주니어 개발자 멘토링 시작했어요. 가르치면서 더 많이 배우네요! 📖",
+    "images": [],
+    "createdAt": "2024-01-11T23:50:00Z",
+    "likes": 445,
+    "retweets": 123,
+    "comments": 78,
+    "isLiked": true,
+    "isRetweeted": false,
+    "isBookmarked": true
+  },
+  {
+    "id": 35,
+    "author": {
+      "name": "예컨퍼런스",
+      "username": "yehconf",
+      "profileImage": "https://picsum.photos/40/40?random=35",
+      "verified": true
+    },
+    "content": "개발자 컨퍼런스 발표 완료! 떨렸지만 좋은 경험이었습니다 🎤",
+    "images": ["https://picsum.photos/500/300?random=28", "https://picsum.photos/500/300?random=29"],
+    "createdAt": "2024-01-11T21:15:00Z",
+    "likes": 923,
+    "retweets": 287,
+    "comments": 145,
+    "isLiked": false,
+    "isRetweeted": false,
+    "isBookmarked": false
+  },
+  {
+    "id": 36,
+    "author": {
+      "name": "류사이드프로젝트",
+      "username": "ryuside",
+      "profileImage": "https://picsum.photos/40/40?random=36",
+      "verified": false
+    },
+    "content": "사이드 프로젝트 6개월 만에 완성! 이제 런칭만 남았습니다 🚀",
+    "images": ["https://picsum.photos/500/300?random=30"],
+    "createdAt": "2024-01-11T19:40:00Z",
+    "likes": 612,
+    "retweets": 189,
+    "comments": 98,
+    "isLiked": true,
+    "isRetweeted": true,
+    "isBookmarked": false
+  },
+  {
+    "id": 37,
+    "author": {
+      "name": "편Git마스터",
+      "username": "pyeongit",
+      "profileImage": "https://picsum.photos/40/40?random=37",
+      "verified": false
+    },
+    "content": "Git 브랜치 전략 정립! Git Flow vs GitHub Flow, 우리 팀에 맞는 선택은? 🌿",
+    "images": [],
+    "createdAt": "2024-01-11T17:25:00Z",
+    "likes": 378,
+    "retweets": 112,
+    "comments": 56,
+    "isLiked": false,
+    "isRetweeted": false,
+    "isBookmarked": false
+  },
+  {
+    "id": 38,
+    "author": {
+      "name": "석배포",
+      "username": "seokdeploy",
+      "profileImage": "https://picsum.photos/40/40?random=38",
+      "verified": true
+    },
+    "content": "무중단 배포 시스템 구축 완료! Blue-Green 배포 방식으로 안정성 확보 ✅",
+    "images": ["https://picsum.photos/500/300?random=31"],
+    "createdAt": "2024-01-11T15:10:00Z",
+    "likes": 534,
+    "retweets": 167,
+    "comments": 89,
+    "isLiked": true,
+    "isRetweeted": false,
+    "isBookmarked": false
+  },
+  {
+    "id": 39,
+    "author": {
+      "name": "탁에러헌터",
+      "username": "takerror",
+      "profileImage": "https://picsum.photos/40/40?random=39",
+      "verified": false
+    },
+    "content": "Sentry로 에러 트래킹 시스템 도입! 버그 잡기가 훨씬 수월해졌어요 🐛",
+    "images": [],
+    "createdAt": "2024-01-11T13:35:00Z",
+    "likes": 289,
+    "retweets": 78,
+    "comments": 45,
+    "isLiked": false,
+    "isRetweeted": true,
+    "isBookmarked": false
+  },
+  {
+    "id": 40,
+    "author": {
+      "name": "간API",
+      "username": "kanapi",
+      "profileImage": "https://picsum.photos/40/40?random=40",
+      "verified": false
+    },
+    "content": "RESTful API 설계 가이드 작성 완료! 일관성 있는 API의 중요성 🔗",
+    "images": ["https://picsum.photos/500/300?random=32"],
+    "createdAt": "2024-01-11T11:50:00Z",
+    "likes": 456,
+    "retweets": 145,
+    "comments": 67,
+    "isLiked": true,
+    "isRetweeted": false,
+    "isBookmarked": false
+  },
+  {
+    "id": 41,
+    "author": {
+      "name": "마인프라",
+      "username": "mainfra",
+      "profileImage": "https://picsum.photos/40/40?random=41",
+      "verified": true
+    },
+    "content": "Terraform으로 인프라를 코드로 관리! IaC의 편리함을 느낍니다 ⚙️",
+    "images": [],
+    "createdAt": "2024-01-11T09:20:00Z",
+    "likes": 398,
+    "retweets": 123,
+    "comments": 54,
+    "isLiked": false,
+    "isRetweeted": false,
+    "isBookmarked": false
+  },
+  {
+    "id": 42,
+    "author": {
+      "name": "사로그",
+      "username": "sahlog",
+      "profileImage": "https://picsum.photos/40/40?random=42",
+      "verified": false
+    },
+    "content": "ELK 스택으로 로그 수집 시스템 구축! 디버깅이 정말 편해졌습니다 📋",
+    "images": ["https://picsum.photos/500/300?random=33", "https://picsum.photos/500/300?random=34"],
+    "createdAt": "2024-01-10T23:45:00Z",
+    "likes": 312,
+    "retweets": 89,
+    "comments": 43,
+    "isLiked": true,
+    "isRetweeted": true,
+    "isBookmarked": false
+  },
+  {
+    "id": 43,
+    "author": {
+      "name": "아캐시",
+      "username": "ahcache",
+      "profileImage": "https://picsum.photos/40/40?random=43",
+      "verified": false
+    },
+    "content": "CDN과 브라우저 캐싱 전략으로 로딩 속도 3배 개선! 성능 최적화 꿀팁 ⚡",
+    "images": [],
+    "createdAt": "2024-01-10T21:30:00Z",
+    "likes": 567,
+    "retweets": 178,
+    "comments": 89,
+    "isLiked": false,
+    "isRetweeted": false,
+    "isBookmarked": false
+  },
+  {
+    "id": 44,
+    "author": {
+      "name": "자반응형",
+      "username": "jahresponsive",
+      "profileImage": "https://picsum.photos/40/40?random=44",
+      "verified": true
+    },
+    "content": "모바일 퍼스트 반응형 디자인 완성! 모든 디바이스에서 완벽한 UX 📱💻",
+    "images": ["https://picsum.photos/500/300?random=35"],
+    "createdAt": "2024-01-10T19:15:00Z",
+    "likes": 445,
+    "retweets": 134,
+    "comments": 67,
+    "isLiked": true,
+    "isRetweeted": false,
+    "isBookmarked": false
+  },
+  {
+    "id": 45,
+    "author": {
+      "name": "정PWA",
+      "username": "jeongpwa",
+      "profileImage": "https://picsum.photos/40/40?random=45",
+      "verified": false
+    },
+    "content": "Progressive Web App 구현 완료! 오프라인에서도 동작하는 웹 📲",
+    "images": [],
+    "createdAt": "2024-01-10T17:40:00Z",
+    "likes": 523,
+    "retweets": 156,
+    "comments": 78,
+    "isLiked": false,
+    "isRetweeted": true,
+    "isBookmarked": false
+  },
+  {
+    "id": 46,
+    "author": {
+      "name": "하SEO",
+      "username": "haseo",
+      "profileImage": "https://picsum.photos/40/40?random=46",
+      "verified": false
+    },
+    "content": "SEO 최적화 작업 완료! 검색 노출이 2배 증가했어요 🔍",
+    "images": ["https://picsum.photos/500/300?random=36"],
+    "createdAt": "2024-01-10T15:25:00Z",
+    "likes": 389,
+    "retweets": 112,
+    "comments": 56,
+    "isLiked": true,
+    "isRetweeted": false,
+    "isBookmarked": false
+  },
+  {
+    "id": 47,
+    "author": {
+      "name": "장국제화",
+      "username": "jangi18n",
+      "profileImage": "https://picsum.photos/40/40?random=47",
+      "verified": true
+    },
+    "content": "다국어 지원 시스템 구축! i18n으로 글로벌 서비스 준비 완료 🌍",
+    "images": [],
+    "createdAt": "2024-01-10T13:10:00Z",
+    "likes": 456,
+    "retweets": 145,
+    "comments": 67,
+    "isLiked": false,
+    "isRetweeted": false,
+    "isBookmarked": false
+  },
+  {
+    "id": 48,
+    "author": {
+      "name": "조다크모드",
+      "username": "johdark",
+      "profileImage": "https://picsum.photos/40/40?random=48",
+      "verified": false
+    },
+    "content": "다크모드 구현 완료! 사용자 눈 건강도 챙기는 개발자 🌙",
+    "images": ["https://picsum.photos/500/300?random=37", "https://picsum.photos/500/300?random=38"],
+    "createdAt": "2024-01-10T11:35:00Z",
+    "likes": 678,
+    "retweets": 198,
+    "comments": 89,
+    "isLiked": true,
+    "isRetweeted": true,
+    "isBookmarked": false
+  },
+  {
+    "id": 49,
+    "author": {
+      "name": "지애니메이션",
+      "username": "jianime",
+      "profileImage": "https://picsum.photos/40/40?random=49",
+      "verified": false
+    },
+    "content": "Framer Motion으로 부드러운 애니메이션 구현! UX가 한 단계 업그레이드 ✨",
+    "images": [],
+    "createdAt": "2024-01-10T09:20:00Z",
+    "likes": 534,
+    "retweets": 167,
+    "comments": 78,
+    "isLiked": false,
+    "isRetweeted": false,
+    "isBookmarked": false
+  },
+  {
+    "id": 50,
+    "author": {
+      "name": "우폼",
+      "username": "wooform",
+      "profileImage": "https://picsum.photos/40/40?random=50",
+      "verified": true
+    },
+    "content": "React Hook Form으로 폼 검증 구현! Yup과 조합하니 완벽하네요 📝",
+    "images": ["https://picsum.photos/500/300?random=39"],
+    "createdAt": "2024-01-10T07:45:00Z",
+    "likes": 412,
+    "retweets": 134,
+    "comments": 56,
+    "isLiked": true,
+    "isRetweeted": false,
+    "isBookmarked": false
+  }
+]
