@@ -1,4 +1,5 @@
 import type { Post } from "../api/feed-type";
+import { getRelativeTime } from "../util/common-util";
 import ToggleActionBar from "./ToggleActionBar";
 import UserCard from "./UserCard";
 
@@ -9,23 +10,16 @@ type Props = {
   handleToggleRetweet: (postId: number) => void;
 };
 
-const PostCard = ({ post, handleToggleLike, handleToggleBookmark, handleToggleRetweet }: Props) => {
+const PostCard = ({
+  post, //
+  handleToggleLike,
+  handleToggleBookmark,
+  handleToggleRetweet,
+}: Props) => {
   return (
-    // <section className="bg-white">
     <section className="rounded-lg shadow-lg  border border-gray-200 mb-3">
       {/* 작성자 헤더 */}
       <UserCard userInfo={post.author} />
-      {/* <div className="flex items-center p-2 justify-between">
-        <div className="flex items-center">
-          <img
-            className="w-10 h-10 rounded-full border-2 border-amber-300 mr-1.5"
-            src={post.author.profileImage}
-            alt={post.author.name}
-          />
-          <p className="font-bold">{post.author.name}</p>
-        </div>
-      </div> */}
-      {/* <p className="text-sm text-gray-500">{dayjs(post.createdAt).format("YYYY-MM-DD")}</p> */}
 
       {/* 피드 내용 */}
       <div className="bg-white">
@@ -39,6 +33,10 @@ const PostCard = ({ post, handleToggleLike, handleToggleBookmark, handleToggleRe
           {/* 피드 내용 */}
           <div className="px-2 py-4">
             <p>{post.content}</p>
+          </div>
+
+          <div className="px-2 py-4">
+            <p className="text-sm text-gray-500">{getRelativeTime(post.createdAt)}</p>
           </div>
         </div>
 

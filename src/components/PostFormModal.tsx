@@ -2,7 +2,12 @@ import { useRef, useState } from "react";
 import Button from "./Button";
 import CloseIcon from "./icons/CloseIcon";
 
-const PostFormModal = ({ setModalOpen }: { setModalOpen: (open: boolean) => void }) => {
+type Props = {
+  onSubmit: (post: { content: string; images: string[] }) => Promise<void>;
+  onClose: () => void; // 모달 닫기
+};
+
+const PostFormModal = ({ onSubmit, onClose }: Props) => {
   const ref = useRef<HTMLInputElement>(null);
   const [content, setContent] = useState("");
   const [images, setImages] = useState("");
@@ -21,12 +26,16 @@ const PostFormModal = ({ setModalOpen }: { setModalOpen: (open: boolean) => void
     }
   };
 
+  const handleSubmit = async () => {
+    await onSubmit({ content, images: images ? [images] : [] });
+  };
+
   return (
     <section className="w-full h-full  fixed top-0 left-0 z-50 bg-black/50 flex justify-center items-center">
       <div className="flex flex-col w-4xl  min-h-[600px] bg-neutral-50 mx-5">
         <div className="p-4 border-b border-gray-200 flex justify-between items-center">
           <h1 className="text-lg font-bold">게시글 업로드</h1>
-          <button className=" py-2 px-4 cursor-pointer text-lg" onClick={() => setModalOpen(false)}>
+          <button className=" py-2 px-4 cursor-pointer text-lg" onClick={onClose}>
             <CloseIcon />
           </button>
         </div>
@@ -61,7 +70,7 @@ const PostFormModal = ({ setModalOpen }: { setModalOpen: (open: boolean) => void
           </div>
           <div className="flex-1 flex flex-col gap-2 relative">
             <textarea
-              placeholder="내용을 입력해주세요"
+              placeholder="Write your post..."
               className="w-full flex-1 border border-blue-300 rounded-xl p-4 resize-none"
               maxLength={280}
               value={content}
@@ -75,7 +84,7 @@ const PostFormModal = ({ setModalOpen }: { setModalOpen: (open: boolean) => void
 
         {/* 버튼 영역 */}
         <div className="h-20 flex justify-end p-4 ">
-          <Button title="저장" onClick={() => setModalOpen(false)} />
+          <Button title="저장" disabled={!content} onClick={() => handleSubmit()} />
         </div>
       </div>
     </section>

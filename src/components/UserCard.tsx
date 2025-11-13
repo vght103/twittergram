@@ -15,7 +15,7 @@ const UserCard = ({ userInfo }: Props) => {
           src={userInfo.profileImage}
           alt={userInfo.name}
         />
-        <p className="font-bold">{userInfo.name}</p>
+        <p className="font-bold">{`${userInfo.username}`}</p>
       </div>
     </div>
   );

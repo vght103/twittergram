@@ -1,13 +1,30 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Post } from "../api/feed-type";
-import { fetchPostsAsync, toggleBookmarkAsync, toggleRetweetAsync } from "../api/feedApi";
-import { toggleLikeAsync } from "../api/feedApi";
+import { fetchPostsAsync } from "../api/feedApi";
 
 const usePost = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [params, setParams] = useState({ page: 1, limit: 10 });
   const [loading, setLoading] = useState(false);
   const [isLastPage, setIsLastPage] = useState(false);
+  const observerTarget = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !loading && !isLastPage) {
+          getPosts();
+        }
+      },
+      { rootMargin: "500px" }
+    );
+
+    if (observerTarget.current) {
+      observer.observe(observerTarget.current);
+    }
+
+    return () => observer.disconnect();
+  }, [loading, isLastPage, posts]); // page 제거
 
   // 게시글 목록 조회
   const getPosts = async () => {
@@ -30,48 +47,13 @@ const usePost = () => {
     }
   };
 
-  // 좋아요 토글
-  const handleToggleLike = async (postId: number) => {
-    setPosts((prev) =>
-      prev.map((post) =>
-        post.id === postId
-          ? { ...post, isLiked: !post.isLiked, likes: post.isLiked ? post.likes - 1 : post.likes + 1 }
-          : post
-      )
-    );
-    await toggleLikeAsync(postId);
+  return {
+    posts,
+    loading,
+    isLastPage,
+    observerTarget,
+    getPosts,
   };
-
-  // 북마크 토글
-  const handleToggleBookmark = async (postId: number) => {
-    setPosts((prev) =>
-      prev.map((post) =>
-        post.id === postId //
-          ? { ...post, isBookmarked: !post.isBookmarked }
-          : post
-      )
-    );
-    await toggleBookmarkAsync(postId);
-  };
-
-  // 리트윗 토글
-  const handleToggleRetweet = async (postId: number) => {
-    setPosts((prev) =>
-      prev.map((post) =>
-        post.id === postId
-          ? {
-              ...post,
-              isRetweeted: !post.isRetweeted,
-              retweets: post.isRetweeted ? post.retweets - 1 : post.retweets + 1,
-            }
-          : post
-      )
-    );
-
-    await toggleRetweetAsync(postId);
-  };
-
-  return { posts, loading, isLastPage, getPosts, handleToggleLike, handleToggleBookmark, handleToggleRetweet };
 };
 
 export default usePost;

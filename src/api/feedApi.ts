@@ -1,5 +1,5 @@
 import mockPosts from "../data/posts.json";
-import type { Post } from "./feed-type";
+import type { Post, PostRequest } from "./feed-type";
 
 interface PostParams {
   page: number;
@@ -9,15 +9,29 @@ interface PostParams {
 // 포스트 목록 조회
 export const fetchPostsAsync = async ({ page = 1, limit = 10 }: PostParams): Promise<Post[]> => {
   // 로컬 데이터에서 페이지네이션 시뮬레이션
-  await new Promise((resolve) => setTimeout(resolve, 1000)); // 로딩 시뮬레이션
+  await new Promise((resolve) => setTimeout(resolve, 800)); // 로딩 시뮬레이션
   return mockPosts.slice((page - 1) * limit, page * limit);
 };
 
 // 포스트 생성 API
 
-export const createPostAsync = async (post: Post): Promise<Post> => {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-  return { ...post, id: mockPosts.length + 1 };
+export const createPostAsync = async (post: PostRequest): Promise<{ post: Post }> => {
+  console.log("포스트 생성", post);
+
+  await new Promise((resolve) => setTimeout(resolve, 800));
+
+  const response: Post = {
+    ...post,
+    id: Math.floor(Math.random() * 1000000),
+    createdAt: new Date().toISOString(),
+    likes: 0,
+    retweets: 0,
+    comments: 0,
+    isLiked: false,
+    isRetweeted: false,
+    isBookmarked: false,
+  };
+  return { post: response };
 };
 
 // 좋아요 토글 API
