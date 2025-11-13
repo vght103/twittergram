@@ -1,73 +1,112 @@
-# React + TypeScript + Vite
+# 소셜미디어 피드 프론트엔드
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+트위터/인스타그램과 유사한 소셜 미디어 피드 서비스입니다.  
+게시글 작성, 무한 스크롤, 좋아요/리트윗 등의 상호작용 기능을 제공합니다.
 
-Currently, two official plugins are available:
+## 실행 방법
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### node 버전
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+v22.12.0 이상
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 설치
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+yarn install
 ```
+
+### 개발 서버 실행
+
+```bash
+yarn dev
+```
+
+브라우저에서 [http://localhost:5173](http://localhost:5173)을 엽니다.
+
+## 기술 스택
+
+- **React 19** + **TypeScript**: 타입 안정성 확보 및 최신 React 기능 활용
+
+### 스타일링
+
+- **Tailwind CSS**
+  - 유틸리티 기반으로 빠른 스타일링 가능
+  - 반응형 디자인 구현이 직관적 (`sm:`, `md:` 등)
+  - 프로덕션 빌드 시 사용하지 않는 CSS 자동 제거
+
+### 상태 관리
+
+- **Zustand**
+  - Context API나 Redux 대비 보일러플레이트 최소화
+  - Props drilling 문제 해결
+  - 게시물 목록 및 상호작용 상태 관리에 사용
+  - 선택적 구독으로 불필요한 리렌더링 방지
+
+### 성능 최적화
+
+- **Intersection Observer API**
+  - 무한 스크롤 구현에 사용
+  - scroll 이벤트 리스너 대비 성능 우수 (이벤트 폭탄 방지)
+  - 화면에 보이는 요소만 감지하여 API 호출
+
+### 유틸리티
+
+- **dayjs**
+  - 날짜/시간 포맷팅 및 상대적 시간 계산
+  - moment.js 대비 용량 절감
+
+## 기능 구현
+
+- 무한스크롤
+- 피드 등록
+  - 이미지 등록 & 미리보기
+  - 텍스트 280자 제한 및 text length 카운터
+  - 등록 버튼 클릭 > 피드 목록에 반영
+- 로딩 Spinner 적용
+- 이미지 확대 모달
+- 시간 표시 및 날짜
+- 좋아요/리트윗 **낙관적 업데이트**
+
+## 기술적 고민과 해결 과정
+
+### 1. Props Drilling 문제 해결
+
+**문제점**
+
+- 초기 구현에서는 `useState`로 게시물 목록과 상호작용 함수를 관리
+- `PostList` → `PostCard` → `ToggleActionBar` 순으로 최소 3단계 props 전달 발생
+- 데이터(`posts`)와 함수(`handleToggleLike`, `handleToggleBookmark` 등) 모두 전달해야 해서 props가 과도하게 증가
+
+**해결 과정**
+
+Context API를 검토했으나 여전히 Provider 설정과 보일러플레이트가 필요했습니다.
+대신 Zustand를 도입하여 게시물 목록과 상호작용 함수를 전역 store로 관리했습니다.
+각 컴포넌트에서 필요한 상태와 함수를 직접 구독하는 방식으로 변경하여 props 전달을 완전히 제거했습니다.
+
+**개선 효과**
+
+- Props 전달 단계 제거 (3단계 → 0단계)
+- 컴포넌트 간 결합도 감소
+- 새로운 기능 추가 시 props 수정 불필요
+
+### 2. 관심사 분리 (로직 vs 마크업)
+
+**문제점**
+
+- 부모 컴포넌트에 API 호출, 상태 업데이트, 이벤트 핸들러 등 모든 로직이 집중
+- 마크업과 비즈니스 로직이 혼재되어 가독성 저하
+- 다른 컴포넌트에서 같은 기능 재사용 불가능
+
+**해결 과정**
+
+커스텀 훅(`usePost`)을 생성하여 API 호출, 상태 업데이트, 이벤트 핸들링 로직을 모두 캡슐화했습니다.
+컴포넌트는 훅에서 필요한 데이터와 함수만 가져와 사용하도록 변경하여 마크업과 로직을 완전히 분리했습니다.
+이를 통해 동일한 로직을 다른 컴포넌트에서도 재사용할 수 있습니다.
+
+**개선 효과**
+
+- 컴포넌트는 마크업에만 집중
+- 비즈니스 로직은 훅에서 재사용 가능
+- 테스트 용이성 향상

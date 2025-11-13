@@ -8,6 +8,10 @@ const Home = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
+  const onCloseModal = () => {
+    navigate("/");
+  };
+
   return (
     <>
       {/* 상단 헤더 - sm 이상에서만 NavBar 표시 */}
@@ -19,15 +23,15 @@ const Home = () => {
           </div>
         </div>
       </header>
+
       <main className="w-full max-w-4xl mx-auto">
+        {/* 피드 목록 */}
         <PostList />
+
+        {/* 피드 등록 모달 */}
         {pathname.includes("/compose") && (
           <Modal>
-            <PostFormModal
-              onClose={() => {
-                navigate("/");
-              }}
-            />
+            <PostFormModal onClose={onCloseModal} />
           </Modal>
         )}
       </main>

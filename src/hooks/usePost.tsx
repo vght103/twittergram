@@ -13,8 +13,19 @@ import { useNavigate } from "react-router";
 
 const usePost = () => {
   const navigate = useNavigate();
+
+  // 로그인 유저 정보
   const { user } = useUserStore();
-  const { posts, createPosts, appendPosts, toggleLike, toggleBookmark, toggleRetweet } = usePostsStore();
+
+  // 게시글 상태 관리 store
+  const {
+    posts, // 게시글 목록
+    createPosts, // 게시글 생성
+    setPosts, // 게시글 추가
+    toggleLike, // 좋아요 토글
+    toggleBookmark, // 북마크 토글
+    toggleRetweet, // 리트윗 토글
+  } = usePostsStore();
 
   const [params, setParams] = useState({ page: 1, limit: 10 });
   const [loading, setLoading] = useState(false);
@@ -47,8 +58,7 @@ const usePost = () => {
     try {
       const postList = await fetchPostsAsync(params);
 
-      appendPosts(postList);
-
+      setPosts(postList);
       setParams((prev) => ({ ...prev, page: prev.page + 1 }));
 
       // 데이터 개수가 제한보다 적으면 마지막 페이지
@@ -62,6 +72,7 @@ const usePost = () => {
 
   // 포스트 생성 함수
   const handleSubmitPost = async (request: { content: string; images: string[] }) => {
+    setLoading(true);
     const requestBody: PostRequest = {
       content: request.content,
       images: request.images,
@@ -79,6 +90,7 @@ const usePost = () => {
       createPosts(result.post);
       navigate("/");
     }
+    setLoading(false);
   };
 
   // 좋아요 토글

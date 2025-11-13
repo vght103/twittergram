@@ -4,12 +4,11 @@ import Spinner from "./Spinner";
 
 const PostList = () => {
   const { posts, observerTarget, loading } = usePost();
-
   return (
     <div className="w-full h-full max-w-xl mx-auto p-4">
       <ul>
         {posts.map((post) => (
-          <li key={"post-" + post.id} className="mb-10 ">
+          <li key={post.id} className="mb-10 ">
             <PostCard post={post} />
           </li>
         ))}

@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import Button from "./Button";
 import CloseIcon from "./icons/CloseIcon";
 import usePost from "../hooks/usePost";
+import Spinner from "./Spinner";
 
 type Props = {
   onClose: () => void; // 모달 닫기
@@ -12,7 +13,7 @@ const PostFormModal = ({ onClose }: Props) => {
   const [content, setContent] = useState("");
   const [images, setImages] = useState("");
 
-  const { handleSubmitPost } = usePost();
+  const { handleSubmitPost, loading } = usePost();
 
   const handleImages = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -86,9 +87,14 @@ const PostFormModal = ({ onClose }: Props) => {
 
         {/* 버튼 영역 */}
         <div className="h-20 flex justify-end p-4 ">
-          <Button title="저장" disabled={!content} onClick={() => handleSubmit()} />
+          <Button title="등록" disabled={!content} onClick={() => handleSubmit()} />
         </div>
       </div>
+      {loading && (
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          <Spinner />
+        </div>
+      )}
     </section>
   );
 };

@@ -27,11 +27,10 @@ export const getRelativeTime = (date: string) => {
     return `${diffHours}시간 전`;
   }
 
-  // 1일 이상
-  if (diffDays === 1) {
-    return "1일 전";
+  // 3일 이상
+  if (diffDays > 3) {
+    return targetDate.format("YYYY.MM.DD");
   }
 
-  // 2일 이상 - 날짜 표시
-  return targetDate.format("YYYY.MM.DD");
+  return `${diffDays}일 전`;
 };

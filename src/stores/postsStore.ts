@@ -4,7 +4,7 @@ import type { Post } from "../api/feed-type";
 type PostsStore = {
   posts: Post[];
   createPosts: (newPosts: Post) => void;
-  appendPosts: (posts: Post[]) => void;
+  setPosts: (posts: Post[]) => void;
   toggleLike: (postId: number) => void;
   toggleBookmark: (postId: number) => void;
   toggleRetweet: (postId: number) => void;
@@ -20,7 +20,7 @@ export const usePostsStore = create<PostsStore>((set) => ({
     })),
 
   // posts 조회 (무한 스크롤용)
-  appendPosts: (newPosts) =>
+  setPosts: (newPosts) =>
     set((state) => ({
       posts: [...state.posts, ...newPosts],
     })),

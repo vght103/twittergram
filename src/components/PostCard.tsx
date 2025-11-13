@@ -1,13 +1,18 @@
+import { useState } from "react";
 import type { Post } from "../api/feed-type";
 import { getRelativeTime } from "../util/common-util";
 import ToggleActionBar from "./ToggleActionBar";
 import UserCard from "./UserCard";
+import ImagePreview from "./ImagePreview";
+import Modal from "./Modal";
 
 type Props = {
   post: Post;
 };
 
 const PostCard = ({ post }: Props) => {
+  const [openImagePreview, setOpenImagePreview] = useState(false);
+
   return (
     <section className="rounded-lg shadow-lg  border border-gray-200 mb-3">
       {/* 작성자 헤더 */}
@@ -16,7 +21,7 @@ const PostCard = ({ post }: Props) => {
       {/* 피드 내용 */}
       <div className="bg-white">
         {/* 메인 이미지 */}
-        <div className="cursor-pointer">
+        <div className="cursor-pointer" onClick={() => post.images.length > 0 && setOpenImagePreview(true)}>
           {post.images.length > 0 && ( //
             <div>
               <img className="w-full h-[340px]" src={post.images[0]} alt={post.content} />
@@ -35,6 +40,13 @@ const PostCard = ({ post }: Props) => {
         {/* 아이콘 section */}
         <ToggleActionBar post={post} />
       </div>
+
+      {/* 이미지 미리보기 모달 */}
+      {openImagePreview && (
+        <Modal>
+          <ImagePreview post={post} onClose={() => setOpenImagePreview(false)} />
+        </Modal>
+      )}
     </section>
   );
 };
