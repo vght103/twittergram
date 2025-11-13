@@ -6,15 +6,16 @@ import BookmarkIconFill from "./icons/BookmarkIconFill";
 import ReTweetIcon from "./icons/ReTweetIcon";
 import ChatIcon from "./icons/ChatIcon";
 import type { Post } from "../api/feed-type";
+import usePost from "../hooks/usePost";
 
 type Props = {
   post: Post;
-  handleToggleLike: (postId: number) => void;
-  handleToggleBookmark: (postId: number) => void;
-  handleToggleRetweet: (postId: number) => void;
 };
 
-const ToggleActionBar = ({ post, handleToggleLike, handleToggleBookmark, handleToggleRetweet }: Props) => {
+const ToggleActionBar = ({
+  post, //
+}: Props) => {
+  const { handleToggleLike, handleToggleBookmark, handleToggleRetweet } = usePost();
   return (
     <div className="flex items-center justify-around px-2 py-4">
       {/* 좋아요 */}

@@ -8,14 +8,14 @@ type Props = {
 
 const UserCard = ({ userInfo }: Props) => {
   return (
-    <div className="flex items-center p-2 justify-between">
+    <div className="flex items-center justify-between p-3">
       <div className="flex items-center">
         <img
-          className="w-10 h-10 rounded-full border-2 border-amber-300 mr-1.5"
+          className="w-10 h-10 rounded-full border-2 border-amber-300  "
           src={userInfo.profileImage}
           alt={userInfo.name}
         />
-        <p className="font-bold">{`${userInfo.username}`}</p>
+        <span className="font-bold ml-1.5">{`${userInfo.username}`}</span>
       </div>
     </div>
   );

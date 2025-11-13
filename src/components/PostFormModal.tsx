@@ -1,16 +1,18 @@
 import { useRef, useState } from "react";
 import Button from "./Button";
 import CloseIcon from "./icons/CloseIcon";
+import usePost from "../hooks/usePost";
 
 type Props = {
-  onSubmit: (post: { content: string; images: string[] }) => Promise<void>;
   onClose: () => void; // 모달 닫기
 };
 
-const PostFormModal = ({ onSubmit, onClose }: Props) => {
+const PostFormModal = ({ onClose }: Props) => {
   const ref = useRef<HTMLInputElement>(null);
   const [content, setContent] = useState("");
   const [images, setImages] = useState("");
+
+  const { handleSubmitPost } = usePost();
 
   const handleImages = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -27,7 +29,7 @@ const PostFormModal = ({ onSubmit, onClose }: Props) => {
   };
 
   const handleSubmit = async () => {
-    await onSubmit({ content, images: images ? [images] : [] });
+    await handleSubmitPost({ content, images: images ? [images] : [] });
   };
 
   return (

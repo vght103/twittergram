@@ -1,103 +1,97 @@
-import { useEffect, useRef, useState } from "react";
-import type { Post } from "../api/feed-type";
-import { fetchPostsAsync, toggleBookmarkAsync, toggleLikeAsync, toggleRetweetAsync } from "../api/feedApi";
-import PostCard from "./PostCard";
-import Spinner from "./Spinner";
-
 const PostList = () => {
-  // const { posts, loading, isLastPage, observerTarget, getPosts } = usePost();
-  const [posts, setPosts] = useState<Post[]>([]);
-  const [params, setParams] = useState({ page: 1, limit: 10 });
-  const [loading, setLoading] = useState(false);
-  const [isLastPage, setIsLastPage] = useState(false);
+  // const [posts, setPosts] = useState<Post[]>([]);
 
-  const observerTarget = useRef<HTMLDivElement>(null);
+  // const [params, setParams] = useState({ page: 1, limit: 10 });
+  // const [loading, setLoading] = useState(false);
+  // const [isLastPage, setIsLastPage] = useState(false);
 
-  // 게시글 목록 조회
-  const getPosts = async () => {
-    if (loading || isLastPage) return; // 로딩 중이거나 더 없으면 중단
-    setLoading(true);
+  // const observerTarget = useRef<HTMLDivElement>(null);
 
-    try {
-      const postList = await fetchPostsAsync(params);
+  // // Observer 설정 - observerTarget이 보이면 loadMore 호출
+  // useEffect(() => {
+  //   const observer = new IntersectionObserver(
+  //     (entries) => {
+  //       if (entries[0].isIntersecting && !loading && !isLastPage) {
+  //         getPosts();
+  //       }
+  //     },
+  //     { rootMargin: "500px" }
+  //   );
 
-      setPosts((prev) => [...prev, ...postList]);
+  //   if (observerTarget.current) {
+  //     observer.observe(observerTarget.current);
+  //   }
 
-      setParams((prev) => ({ ...prev, page: prev.page + 1 }));
+  //   return () => observer.disconnect();
+  // }, [loading, isLastPage]); // page 제거
 
-      // 데이터 개수가 제한보다 적으면 마지막 페이지
-      setIsLastPage(postList.length !== params.limit);
-    } catch (error) {
-      console.error("Error fetching posts:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  // // 게시글 목록 조회
+  // const getPosts = async () => {
+  //   if (loading || isLastPage) return; // 로딩 중이거나 더 없으면 중단
+  //   setLoading(true);
 
-  // Observer 설정 - observerTarget이 보이면 loadMore 호출
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && !loading && !isLastPage) {
-          getPosts();
-        }
-      },
-      { rootMargin: "500px" }
-    );
+  //   try {
+  //     const postList = await fetchPostsAsync(params);
 
-    if (observerTarget.current) {
-      observer.observe(observerTarget.current);
-    }
+  //     setPosts((prev) => [...prev, ...postList]);
 
-    return () => observer.disconnect();
-  }, [loading, isLastPage, posts]); // page 제거
+  //     setParams((prev) => ({ ...prev, page: prev.page + 1 }));
 
-  // 좋아요 토글
-  const handleToggleLike = async (postId: number) => {
-    setPosts((prev) =>
-      prev.map((post) =>
-        post.id === postId
-          ? { ...post, isLiked: !post.isLiked, likes: post.isLiked ? post.likes - 1 : post.likes + 1 }
-          : post
-      )
-    );
-    await toggleLikeAsync(postId);
-  };
+  //     // 데이터 개수가 제한보다 적으면 마지막 페이지
+  //     setIsLastPage(postList.length !== params.limit);
+  //   } catch (error) {
+  //     console.error("Error fetching posts:", error);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
-  // 북마크 토글
-  const handleToggleBookmark = async (postId: number) => {
-    setPosts((prev) =>
-      prev.map((post) =>
-        post.id === postId //
-          ? { ...post, isBookmarked: !post.isBookmarked }
-          : post
-      )
-    );
-    await toggleBookmarkAsync(postId);
-  };
+  // // 좋아요 토글
+  // const handleToggleLike = async (postId: number) => {
+  //   setPosts((prev) =>
+  //     prev.map((post) =>
+  //       post.id === postId
+  //         ? { ...post, isLiked: !post.isLiked, likes: post.isLiked ? post.likes - 1 : post.likes + 1 }
+  //         : post
+  //     )
+  //   );
+  //   await toggleLikeAsync(postId);
+  // };
 
-  // 리트윗 토글
-  const handleToggleRetweet = async (postId: number) => {
-    setPosts((prev) =>
-      prev.map((post) =>
-        post.id === postId
-          ? {
-              ...post,
-              isRetweeted: !post.isRetweeted,
-              retweets: post.isRetweeted ? post.retweets - 1 : post.retweets + 1,
-            }
-          : post
-      )
-    );
+  // // 북마크 토글
+  // const handleToggleBookmark = async (postId: number) => {
+  //   setPosts((prev) =>
+  //     prev.map((post) =>
+  //       post.id === postId //
+  //         ? { ...post, isBookmarked: !post.isBookmarked }
+  //         : post
+  //     )
+  //   );
+  //   await toggleBookmarkAsync(postId);
+  // };
 
-    await toggleRetweetAsync(postId);
-  };
+  // // 리트윗 토글
+  // const handleToggleRetweet = async (postId: number) => {
+  //   setPosts((prev) =>
+  //     prev.map((post) =>
+  //       post.id === postId
+  //         ? {
+  //             ...post,
+  //             isRetweeted: !post.isRetweeted,
+  //             retweets: post.isRetweeted ? post.retweets - 1 : post.retweets + 1,
+  //           }
+  //         : post
+  //     )
+  //   );
+
+  // await toggleRetweetAsync(postId);
+  // };
 
   return (
     <div className="w-full h-full max-w-xl mx-auto p-4">
-      <ul>
+      {/* <ul>
         {posts.map((post) => (
-          <li key={"post-" + post.id} className="my-6 ">
+          <li key={"post-" + post.id} className="mb-10 ">
             <PostCard
               post={post}
               handleToggleLike={handleToggleLike}
@@ -106,12 +100,12 @@ const PostList = () => {
             />
           </li>
         ))}
-      </ul>
+      </ul> */}
 
       {/* Observer 타겟 */}
-      <div ref={observerTarget} className="h-20 flex items-center justify-center">
+      {/* <div ref={observerTarget} className="h-20 flex items-center justify-center">
         {loading && <Spinner />}
-      </div>
+      </div> */}
     </div>
   );
 };

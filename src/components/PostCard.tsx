@@ -5,17 +5,9 @@ import UserCard from "./UserCard";
 
 type Props = {
   post: Post;
-  handleToggleLike: (postId: number) => void;
-  handleToggleBookmark: (postId: number) => void;
-  handleToggleRetweet: (postId: number) => void;
 };
 
-const PostCard = ({
-  post, //
-  handleToggleLike,
-  handleToggleBookmark,
-  handleToggleRetweet,
-}: Props) => {
+const PostCard = ({ post }: Props) => {
   return (
     <section className="rounded-lg shadow-lg  border border-gray-200 mb-3">
       {/* 작성자 헤더 */}
@@ -27,7 +19,7 @@ const PostCard = ({
         <div className="cursor-pointer">
           {post.images.length > 0 && ( //
             <div>
-              <img className="w-full h-auto" src={post.images[0]} alt={post.content} />
+              <img className="w-full h-[340px]" src={post.images[0]} alt={post.content} />
             </div>
           )}
           {/* 피드 내용 */}
@@ -41,12 +33,7 @@ const PostCard = ({
         </div>
 
         {/* 아이콘 section */}
-        <ToggleActionBar
-          post={post}
-          handleToggleLike={handleToggleLike}
-          handleToggleBookmark={handleToggleBookmark}
-          handleToggleRetweet={handleToggleRetweet}
-        />
+        <ToggleActionBar post={post} />
       </div>
     </section>
   );
