@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-import { Route, Routes } from "react-router";
 import "./App.css";
+import Home from "./components/Home";
 import Modal from "./components/Modal";
 import NavBar from "./components/NavBar";
 import PostFormModal from "./components/PostFormModal";
-import { routeList } from "./routes";
 
 function App() {
   //  마운트 시 스크롤 최상단
@@ -26,11 +25,7 @@ function App() {
         </div>
       </header>
       <main className="w-full max-w-4xl mx-auto">
-        <Routes>
-          {routeList.map((route) => (
-            <Route key={route.path} path={route.path} element={route.element()} />
-          ))}
-        </Routes>
+        <Home />
       </main>
       <footer className="">
         <h1>Footer</h1>

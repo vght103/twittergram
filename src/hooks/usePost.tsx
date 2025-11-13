@@ -1,16 +1,13 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import type { Post } from "../api/feed-type";
-import { fetchPostsAsync, toggleBookmarkAsync, toggleLikeAsync, toggleRetweetAsync } from "../api/feedApi";
-import PostCard from "./PostCard";
-import Spinner from "./Spinner";
+import { fetchPostsAsync, toggleBookmarkAsync, toggleRetweetAsync } from "../api/feedApi";
+import { toggleLikeAsync } from "../api/feedApi";
 
-const Home = () => {
+const usePost = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [params, setParams] = useState({ page: 1, limit: 10 });
   const [loading, setLoading] = useState(false);
   const [isLastPage, setIsLastPage] = useState(false);
-
-  const observerTarget = useRef<HTMLDivElement>(null);
 
   // 게시글 목록 조회
   const getPosts = async () => {
@@ -32,24 +29,6 @@ const Home = () => {
       setLoading(false);
     }
   };
-
-  // Observer 설정 - observerTarget이 보이면 loadMore 호출
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && !loading && !isLastPage) {
-          getPosts();
-        }
-      },
-      { rootMargin: "500px" }
-    );
-
-    if (observerTarget.current) {
-      observer.observe(observerTarget.current);
-    }
-
-    return () => observer.disconnect();
-  }, [loading, isLastPage]); // page 제거
 
   // 좋아요 토글
   const handleToggleLike = async (postId: number) => {
@@ -92,27 +71,7 @@ const Home = () => {
     await toggleRetweetAsync(postId);
   };
 
-  return (
-    <div className="w-full h-full max-w-xl mx-auto p-4">
-      <ul>
-        {posts.map((post) => (
-          <li key={"post-" + post.id} className="my-6 ">
-            <PostCard
-              post={post}
-              handleToggleLike={handleToggleLike}
-              handleToggleBookmark={handleToggleBookmark}
-              handleToggleRetweet={handleToggleRetweet}
-            />
-          </li>
-        ))}
-      </ul>
-
-      {/* Observer 타겟 */}
-      <div ref={observerTarget} className="h-20 flex items-center justify-center">
-        {loading && <Spinner />}
-      </div>
-    </div>
-  );
+  return { posts, loading, isLastPage, getPosts, handleToggleLike, handleToggleBookmark, handleToggleRetweet };
 };
 
-export default Home;
+export default usePost;

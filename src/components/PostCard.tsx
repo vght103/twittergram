@@ -1,6 +1,6 @@
-import dayjs from "dayjs";
 import type { Post } from "../api/feed-type";
 import ToggleActionBar from "./ToggleActionBar";
+import UserCard from "./UserCard";
 
 type Props = {
   post: Post;
@@ -14,7 +14,8 @@ const PostCard = ({ post, handleToggleLike, handleToggleBookmark, handleToggleRe
     // <section className="bg-white">
     <section className="rounded-lg shadow-lg  border border-gray-200 mb-3">
       {/* 작성자 헤더 */}
-      <div className="flex items-center p-2 justify-between">
+      <UserCard userInfo={post.author} />
+      {/* <div className="flex items-center p-2 justify-between">
         <div className="flex items-center">
           <img
             className="w-10 h-10 rounded-full border-2 border-amber-300 mr-1.5"
@@ -23,8 +24,8 @@ const PostCard = ({ post, handleToggleLike, handleToggleBookmark, handleToggleRe
           />
           <p className="font-bold">{post.author.name}</p>
         </div>
-        <p className="text-sm text-gray-500">{dayjs(post.createdAt).format("YYYY-MM-DD")}</p>
-      </div>
+      </div> */}
+      {/* <p className="text-sm text-gray-500">{dayjs(post.createdAt).format("YYYY-MM-DD")}</p> */}
 
       {/* 피드 내용 */}
       <div className="bg-white">

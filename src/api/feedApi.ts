@@ -13,9 +13,30 @@ export const fetchPostsAsync = async ({ page = 1, limit = 10 }: PostParams): Pro
   return mockPosts.slice((page - 1) * limit, page * limit);
 };
 
-// 좋아요 토글
-// export const toggleLike = async (postId: string) => {
-//   await new Promise((resolve) => setTimeout(resolve, 300));
-//   // 로컬 상태 업데이트
-//   return { success: true };
-// };
+// 포스트 생성 API
+
+export const createPostAsync = async (post: Post): Promise<Post> => {
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  return { ...post, id: mockPosts.length + 1 };
+};
+
+// 좋아요 토글 API
+export const toggleLikeAsync = async (postId: number): Promise<{ success: boolean }> => {
+  await new Promise((resolve) => setTimeout(resolve, 300)); // 네트워크 지연 시뮬레이션
+  console.log("좋아요 통신", postId);
+  return { success: true };
+};
+
+// 북마크 토글 API
+export const toggleBookmarkAsync = async (postId: number): Promise<{ success: boolean }> => {
+  await new Promise((resolve) => setTimeout(resolve, 300));
+  console.log("북마크 통신", postId);
+  return { success: true };
+};
+
+// 리트윗 토글 API
+export const toggleRetweetAsync = async (postId: number): Promise<{ success: boolean }> => {
+  await new Promise((resolve) => setTimeout(resolve, 300));
+  console.log("리트윗 통신", postId);
+  return { success: true };
+};
