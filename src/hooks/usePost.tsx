@@ -31,6 +31,7 @@ const usePost = () => {
   const [loading, setLoading] = useState(false);
   const [isLastPage, setIsLastPage] = useState(false);
 
+  // 옵저버 타켓
   const observerTarget = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
