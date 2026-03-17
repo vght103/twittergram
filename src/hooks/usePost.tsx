@@ -1,4 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect } from "react";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInView } from "react-intersection-observer";
 import {
   createPostAsync,
   fetchPostsAsync,
@@ -11,69 +13,46 @@ import type { PostRequest } from "../api/feed-type";
 import { useUserStore } from "../stores/userStore";
 import { useNavigate } from "react-router";
 
+const LIMIT = 10;
+
 const usePost = () => {
   const navigate = useNavigate();
 
   // 로그인 유저 정보
   const { user } = useUserStore();
 
-  // 게시글 상태 관리 store
-  const {
-    posts, // 게시글 목록
-    createPosts, // 게시글 생성
-    setPosts, // 게시글 추가
-    toggleLike, // 좋아요 토글
-    toggleBookmark, // 북마크 토글
-    toggleRetweet, // 리트윗 토글
-  } = usePostsStore();
+  // 낙관적 업데이트용 store (추후 Phase에서 useMutation으로 교체 예정)
+  const { toggleLike, toggleBookmark, toggleRetweet } = usePostsStore();
 
-  const [params, setParams] = useState({ page: 1, limit: 10 });
-  const [loading, setLoading] = useState(false);
-  const [isLastPage, setIsLastPage] = useState(false);
+  // 무한 스크롤 - useInfiniteQuery
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, isError } = useInfiniteQuery({
+    queryKey: ["posts"],
+    queryFn: ({ pageParam = 0 }) => fetchPostsAsync(pageParam, LIMIT),
+    initialPageParam: 0,
+    getNextPageParam: (lastPage) => {
+      const nextSkip = lastPage.skip + lastPage.limit;
+      return nextSkip < lastPage.total ? nextSkip : undefined;
+    },
+  });
 
-  // 옵저버 타켓
-  const observerTarget = useRef<HTMLDivElement>(null);
+  // 스크롤 감지 - react-intersection-observer
+  const { ref: observerTarget, inView } = useInView({
+    rootMargin: "500px",
+  });
 
+  // inView가 true가 되면 다음 페이지 로드
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && !loading && !isLastPage) {
-          getPostList();
-        }
-      },
-      { rootMargin: "500px" }
-    );
-
-    if (observerTarget.current) {
-      observer.observe(observerTarget.current);
+    if (inView && hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
     }
+  }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
-    return () => observer.disconnect();
-  }, [loading, isLastPage, posts]); // page 제거
-
-  // 게시글 목록 조회
-  const getPostList = async () => {
-    if (loading || isLastPage) return; // 로딩 중이거나 더 없으면 중단
-    setLoading(true);
-
-    try {
-      const postList = await fetchPostsAsync(params);
-
-      setPosts(postList);
-      setParams((prev) => ({ ...prev, page: prev.page + 1 }));
-
-      // 데이터 개수가 제한보다 적으면 마지막 페이지
-      setIsLastPage(postList.length !== params.limit);
-    } catch (error) {
-      console.error("Error fetching posts:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  // pages 배열을 flat하게 변환
+  console.log("data", data);
+  const posts = data?.pages.flatMap((page) => page.posts) ?? [];
 
   // 포스트 생성 함수
   const handleSubmitPost = async (request: { content: string; images: string[] }) => {
-    setLoading(true);
     const requestBody: PostRequest = {
       content: request.content,
       images: request.images,
@@ -88,10 +67,8 @@ const usePost = () => {
     const result = await createPostAsync(requestBody);
 
     if (result) {
-      createPosts(result.post);
       navigate("/");
     }
-    setLoading(false);
   };
 
   // 좋아요 토글
@@ -109,16 +86,16 @@ const usePost = () => {
   // 리트윗 토글
   const handleToggleRetweet = async (postId: number) => {
     toggleRetweet(postId);
-
     await toggleRetweetAsync(postId);
   };
 
   return {
     posts,
-    loading,
-    isLastPage,
+    loading: isLoading,
+    isFetchingNextPage,
+    isError,
+    hasNextPage,
     observerTarget,
-    getPostList,
     handleToggleLike,
     handleToggleBookmark,
     handleToggleRetweet,

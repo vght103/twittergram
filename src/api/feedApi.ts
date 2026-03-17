@@ -1,28 +1,56 @@
-import mockPosts from "../data/posts.json";
-import type { Post, PostRequest } from "./feed-type";
+import type { Post, PostRequest, DummyJsonPost, DummyJsonPostsResponse, PostsPage } from "./feed-type";
 
-interface PostParams {
-  page: number;
-  limit: number;
-}
+const BASE_URL = "https://dummyjson.com";
 
-// 포스트 목록 조회
-export const fetchPostsAsync = async ({ page = 1, limit = 10 }: PostParams): Promise<Post[]> => {
-  // 로컬 데이터에서 페이지네이션 시뮬레이션
-  await new Promise((resolve) => setTimeout(resolve, 800)); // 로딩 시뮬레이션
-  return mockPosts.slice((page - 1) * limit, page * limit);
+// DummyJSON 포스트 → Post 타입 변환
+const toPost = (raw: DummyJsonPost): Post => ({
+  id: raw.id,
+  content: raw.body,
+  images: [`https://picsum.photos/id/${raw.id % 100}/600/400`],
+  author: {
+    name: `User ${raw.userId}`,
+    username: `user_${raw.userId}`,
+    profileImage: `https://randomuser.me/api/portraits/men/${raw.userId % 99}.jpg`,
+    verified: raw.userId % 3 === 0,
+  },
+  createdAt: new Date(Date.now() - raw.id * 3600000).toISOString(),
+  likes: raw.reactions.likes,
+  retweets: raw.views,
+  comments: raw.reactions.dislikes,
+  isLiked: false,
+  isRetweeted: false,
+  isBookmarked: false,
+});
+
+// 포스트 목록 조회 (페이지네이션)
+export const fetchPostsAsync = async (skip = 0, limit = 10): Promise<PostsPage> => {
+  const res = await fetch(`${BASE_URL}/posts?limit=${limit}&skip=${skip}`);
+  const data: DummyJsonPostsResponse = await res.json();
+
+  return {
+    posts: data.posts.map(toPost),
+    total: data.total,
+    skip: data.skip,
+    limit: data.limit,
+  };
 };
 
 // 포스트 생성 API
-
 export const createPostAsync = async (post: PostRequest): Promise<{ post: Post }> => {
-  console.log("포스트 생성", post);
-
-  await new Promise((resolve) => setTimeout(resolve, 800));
+  const res = await fetch(`${BASE_URL}/posts/add`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      title: post.content.slice(0, 50),
+      body: post.content,
+      userId: 1,
+    }),
+  });
+  const data = await res.json();
 
   const response: Post = {
     ...post,
-    id: Math.floor(Math.random() * 1000000),
+    id: data.id,
     createdAt: new Date().toISOString(),
     likes: 0,
     retweets: 0,
@@ -36,21 +64,30 @@ export const createPostAsync = async (post: PostRequest): Promise<{ post: Post }
 
 // 좋아요 토글 API
 export const toggleLikeAsync = async (postId: number): Promise<{ success: boolean }> => {
-  await new Promise((resolve) => setTimeout(resolve, 300)); // 네트워크 지연 시뮬레이션
-  console.log("좋아요 통신", postId);
+  await fetch(`${BASE_URL}/posts/${postId}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ title: "liked" }),
+  });
   return { success: true };
 };
 
 // 북마크 토글 API
 export const toggleBookmarkAsync = async (postId: number): Promise<{ success: boolean }> => {
-  await new Promise((resolve) => setTimeout(resolve, 300));
-  console.log("북마크 통신", postId);
+  await fetch(`${BASE_URL}/posts/${postId}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ title: "bookmarked" }),
+  });
   return { success: true };
 };
 
 // 리트윗 토글 API
 export const toggleRetweetAsync = async (postId: number): Promise<{ success: boolean }> => {
-  await new Promise((resolve) => setTimeout(resolve, 300));
-  console.log("리트윗 통신", postId);
+  await fetch(`${BASE_URL}/posts/${postId}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ title: "retweeted" }),
+  });
   return { success: true };
 };
