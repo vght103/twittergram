@@ -1,7 +1,7 @@
 # 소셜미디어 피드 프론트엔드
 
-트위터/인스타그램과 유사한 소셜 미디어 피드 서비스입니다.  
-게시글 작성, 무한 스크롤, 좋아요/리트윗 등의 상호작용 기능을 제공합니다.
+트위터/인스타그램과 유사한 소셜 미디어 피드 서비스입니다.
+다양한 스크롤 방식과 상태 관리 패턴을 비교 학습할 수 있는 프로젝트입니다.
 
 ## 실행 방법
 
@@ -14,97 +14,112 @@ v22.12.0 이상
 ### 설치
 
 ```bash
-yarn install
+pnpm install
 ```
 
 ### 개발 서버 실행
 
 ```bash
-yarn dev
+pnpm dev
 ```
 
 브라우저에서 [http://localhost:5173](http://localhost:5173)을 엽니다.
 
 ## 기술 스택
 
-- **React 19** + **TypeScript**: 타입 안정성 확보 및 최신 React 기능 활용
+| 분류 | 기술 |
+|------|------|
+| Framework | React 19 + TypeScript 5.9 |
+| Build | Vite 7 |
+| 상태 관리 | Zustand v5 (클라이언트) / TanStack Query v5 (서버) |
+| 스타일링 | Tailwind CSS v4 |
+| 가상 스크롤 | @tanstack/react-virtual |
+| 스크롤 감지 | react-intersection-observer |
+| 유틸리티 | dayjs, react-icons |
 
-### 스타일링
+## 4가지 구현 방식 비교
 
-- **Tailwind CSS**
-  - 유틸리티 기반으로 빠른 스타일링 가능
-  - 반응형 디자인 구현이 직관적 (`sm:`, `md:` 등)
+사이드바에서 각 페이지를 전환하며 비교할 수 있습니다.
 
-### 상태 관리
+### 1. Original (`/original`)
 
-- **Zustand**
-  - Context API나 Redux 대비 보일러플레이트 최소화
-  - Props drilling 문제 해결
-  - 게시물 목록 및 상호작용 상태 관리에 사용
+기존 직접 구현 방식.
 
-### 성능 최적화
+- `useState` + `useRef` + `IntersectionObserver` 직접 구현
+- Zustand store로 서버/클라이언트 상태 혼재 관리
+- 낙관적 업데이트 (rollback 없음)
+- 데이터 소스: 로컬 JSON + setTimeout
 
-- **Intersection Observer API**
-  - 무한 스크롤 구현에 사용
-  - scroll 이벤트 리스너 대비 성능 우수 (이벤트 폭탄 방지)
-  - 화면에 보이는 요소만 감지하여 API 호출
+### 2. TanStack Query (`/tanstack`)
 
-### 유틸리티
+TanStack Query 기반 무한 스크롤.
 
-- **dayjs**
-  - 날짜/시간 포맷팅 및 상대적 시간 계산
-  - moment.js 대비 용량 절감
+- `useInfiniteQuery` + `react-intersection-observer`
+- `useMutation` 낙관적 업데이트 (onError rollback 지원)
+- 캐싱, 재검증, 에러 처리 자동화
+- 데이터 소스: DummyJSON API (실제 HTTP 통신)
+- **특징**: 스크롤할수록 DOM 노드 계속 누적
 
-## 기능 구현
+### 3. Virtual Scroll (`/virtual`)
 
-- 무한스크롤
-- 피드 등록
-  - 이미지 등록 & 미리보기
-  - 텍스트 280자 제한 및 text length 카운터
-  - 등록 버튼 클릭 > 피드 목록에 반영
-- 로딩 Spinner 적용
-- 이미지 확대 모달
-- 시간 표시 및 날짜
-- 좋아요/리트윗 **낙관적 업데이트**
+가상 스크롤 단독 사용.
+
+- `useQuery` 1회 호출로 5,000개 전체 로드 (JSONPlaceholder API)
+- `useVirtualizer`로 화면에 보이는 ~6개만 DOM 렌더링
+- DOM 절감률 99.88%
+- **특징**: 스크롤바가 5,000개분 전체 높이를 반영
+
+### 4. Infinite + Virtual (`/infinite-virtual`)
+
+무한 스크롤 + 가상 스크롤 조합. **실무 최적 패턴.**
+
+- `useInfiniteQuery`로 10개씩 점진 로딩
+- `useVirtualizer`로 DOM은 항상 ~6개 유지
+- 네트워크 부담 최소 + DOM 부담 최소
+- **특징**: 데이터가 늘어나도 DOM 수 고정, 스크롤 UX 자연스러움
+
+### 방식별 비교 요약
+
+| | 데이터 로딩 | DOM 렌더링 | API 호출 | 스크롤 UX |
+|---|---|---|---|---|
+| Original | 로컬 JSON | 전부 누적 | 없음 (로컬) | 자연스러움 |
+| TanStack | 10개씩 점진 | 전부 누적 | 스크롤 시 추가 | 자연스러움 |
+| Virtual | 5,000개 한번에 | ~6개 고정 | 1회 | 스크롤바 작음 |
+| **Inf + Virt** | **10개씩 점진** | **~6개 고정** | **스크롤 시 추가** | **자연스러움** |
+
+## 사용한 Public API
+
+| API | 용도 | URL |
+|-----|------|-----|
+| DummyJSON | 포스트 데이터 (251개) | `https://dummyjson.com/posts` |
+| JSONPlaceholder | 대량 데이터 (5,000개) | `https://jsonplaceholder.typicode.com/photos` |
+| Picsum Photos | 포스트 이미지 | `https://picsum.photos/id/{id}/600/400` |
+| Random User | 아바타 이미지 | `https://randomuser.me/api/portraits/men/{id}.jpg` |
 
 ## 기술적 고민과 해결 과정
 
-### 1. Props Drilling 문제 해결
+### 1. 서버 상태 vs 클라이언트 상태 분리
 
-**문제점**
+**문제점**: Zustand에 서버 상태(피드 목록, 좋아요)와 클라이언트 상태(UI, 로그인)가 혼재
 
-- 초기 구현에서는 `useState`로 게시물 목록과 상호작용 함수를 관리
-- `PostList` → `PostCard` → `ToggleActionBar` 순으로 최소 3단계 props 전달 발생
-- 데이터(`posts`)와 함수(`handleToggleLike`, `handleToggleBookmark` 등) 모두 전달해야 해서 props가 과도하게 증가
+**해결**: TanStack Query 도입으로 역할 분리
+- Zustand → 클라이언트 상태만 (로그인 유저 정보)
+- TanStack Query → 서버 상태 전담 (피드, 좋아요, 북마크 등)
 
-**해결 과정**
+### 2. 낙관적 업데이트 rollback 부재
 
-Context API를 검토했으나 여전히 Provider 설정과 보일러플레이트가 필요했습니다.
-대신 Zustand를 도입하여 게시물 목록과 상호작용 함수를 전역 store로 관리했습니다.
-각 컴포넌트에서 필요한 상태와 함수를 직접 구독하는 방식으로 변경하여 props 전달을 완전히 제거했습니다.
+**문제점**: 기존 방식은 store를 먼저 변경하고 API 호출 → API 실패 시 UI 불일치
 
-**개선 효과**
+**해결**: `useMutation`의 `onMutate`/`onError` 패턴 적용
+- `onMutate`: 캐시 스냅샷 저장 → 즉시 UI 반영
+- `onError`: 스냅샷으로 rollback
+- 3개 토글(좋아요/북마크/리트윗)의 공통 로직을 `useOptimisticToggle` 팩토리로 추출
 
-- Props 전달 단계 제거 (3단계 → 0단계)
-- 컴포넌트 간 결합도 감소
-- 새로운 기능 추가 시 props 수정 불필요
+### 3. DOM 누적으로 인한 성능 저하
 
-### 2. 관심사 분리 (로직 vs 마크업)
+**문제점**: 무한 스크롤로 수백 개 포스트 로드 시 DOM 노드 누적 → 렌더링 성능 저하
 
-**문제점**
-
-- 부모 컴포넌트에 API 호출, 상태 업데이트, 이벤트 핸들러 등 모든 로직이 집중
-- 마크업과 비즈니스 로직이 혼재되어 가독성 저하
-- 다른 컴포넌트에서 같은 기능 재사용 불가능
-
-**해결 과정**
-
-커스텀 훅(`usePost`)을 생성하여 API 호출, 상태 업데이트, 이벤트 핸들링 로직을 모두 캡슐화했습니다.
-컴포넌트는 훅에서 필요한 데이터와 함수만 가져와 사용하도록 변경하여 마크업과 로직을 완전히 분리했습니다.
-이를 통해 동일한 로직을 다른 컴포넌트에서도 재사용할 수 있습니다.
-
-**개선 효과**
-
-- 컴포넌트는 마크업에만 집중
-- 비즈니스 로직은 훅에서 재사용 가능
-- 테스트 용이성 향상
+**해결**: `@tanstack/react-virtual`로 가상 스크롤 적용
+- 화면에 보이는 아이템만 DOM에 렌더링 (~6개)
+- `estimateSize`로 초기 높이 추정, `measureElement`로 실제 높이 보정
+- 무한 스크롤과 조합하여 네트워크 + DOM 최적화 동시 달성
