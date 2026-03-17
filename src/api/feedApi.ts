@@ -91,3 +91,28 @@ export const toggleRetweetAsync = async (postId: number): Promise<{ success: boo
   });
   return { success: true };
 };
+
+// 가상 스크롤용 - 전체 데이터 1회 호출 (JSONPlaceholder 5,000개)
+export const fetchAllPhotosAsync = async (): Promise<Post[]> => {
+  const res = await fetch("https://jsonplaceholder.typicode.com/photos?_limit=5000");
+  const data: { albumId: number; id: number; title: string; url: string; thumbnailUrl: string }[] = await res.json();
+
+  return data.map((photo) => ({
+    id: photo.id,
+    content: photo.title,
+    images: [`https://picsum.photos/id/${photo.id % 1000}/600/400`],
+    author: {
+      name: `User ${photo.albumId}`,
+      username: `user_${photo.albumId}`,
+      profileImage: `https://randomuser.me/api/portraits/men/${photo.albumId % 99}.jpg`,
+      verified: photo.albumId % 3 === 0,
+    },
+    createdAt: new Date(Date.now() - photo.id * 360000).toISOString(),
+    likes: Math.floor(Math.random() * 500),
+    retweets: Math.floor(Math.random() * 200),
+    comments: Math.floor(Math.random() * 100),
+    isLiked: false,
+    isRetweeted: false,
+    isBookmarked: false,
+  }));
+};
