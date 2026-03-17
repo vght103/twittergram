@@ -1,0 +1,49 @@
+import mockPosts from "../data/posts.json";
+import type { Post, PostRequest } from "./feed-type";
+
+interface PostParams {
+  page: number;
+  limit: number;
+}
+
+// 포스트 목록 조회 (로컬 JSON + setTimeout)
+export const fetchPostsAsync = async ({ page = 1, limit = 10 }: PostParams): Promise<Post[]> => {
+  await new Promise((resolve) => setTimeout(resolve, 800));
+  return mockPosts.slice((page - 1) * limit, page * limit);
+};
+
+// 포스트 생성 API
+export const createPostAsync = async (post: PostRequest): Promise<{ post: Post }> => {
+  await new Promise((resolve) => setTimeout(resolve, 800));
+
+  const response: Post = {
+    ...post,
+    id: Math.floor(Math.random() * 1000000),
+    createdAt: new Date().toISOString(),
+    likes: 0,
+    retweets: 0,
+    comments: 0,
+    isLiked: false,
+    isRetweeted: false,
+    isBookmarked: false,
+  };
+  return { post: response };
+};
+
+// 좋아요 토글 API
+export const toggleLikeAsync = async (postId: number): Promise<{ success: boolean }> => {
+  await new Promise((resolve) => setTimeout(resolve, 300));
+  return { success: true };
+};
+
+// 북마크 토글 API
+export const toggleBookmarkAsync = async (postId: number): Promise<{ success: boolean }> => {
+  await new Promise((resolve) => setTimeout(resolve, 300));
+  return { success: true };
+};
+
+// 리트윗 토글 API
+export const toggleRetweetAsync = async (postId: number): Promise<{ success: boolean }> => {
+  await new Promise((resolve) => setTimeout(resolve, 300));
+  return { success: true };
+};
