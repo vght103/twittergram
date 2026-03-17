@@ -4,6 +4,7 @@ import MobileNav from "./components/MobileNav";
 import OriginalPage from "./pages/original/OriginalPage";
 import TanstackPage from "./pages/tanstack/TanstackPage";
 import VirtualPage from "./pages/virtual/VirtualPage";
+import InfiniteVirtualPage from "./pages/infinite-virtual/InfiniteVirtualPage";
 import "./App.css";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
           <Route path="/original" element={<OriginalPage />} />
           <Route path="/tanstack" element={<TanstackPage />} />
           <Route path="/virtual" element={<VirtualPage />} />
+          <Route path="/infinite-virtual" element={<InfiniteVirtualPage />} />
         </Routes>
       </main>
 

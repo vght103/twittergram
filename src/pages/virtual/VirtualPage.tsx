@@ -4,6 +4,8 @@ import usePostVirtual from "../../hooks/usePostVirtual";
 import PostCard from "../../components/PostCard";
 import Spinner from "../../components/Spinner";
 
+// 가상스크롤 Case
+
 const ESTIMATED_POST_HEIGHT = 500;
 
 const VirtualPage = () => {
@@ -26,11 +28,7 @@ const VirtualPage = () => {
   }
 
   if (isError) {
-    return (
-      <div className="text-center text-red-500 py-10">
-        피드를 불러오는데 실패했습니다.
-      </div>
-    );
+    return <div className="text-center text-red-500 py-10">피드를 불러오는데 실패했습니다.</div>;
   }
 
   // 현재 렌더링 중인 아이템 정보
@@ -43,9 +41,7 @@ const VirtualPage = () => {
     <div>
       <div className="mb-4 p-3 bg-green-50 border border-green-200 rounded-lg text-sm">
         <p className="font-bold text-green-800">Virtual Scroll 구현</p>
-        <p className="text-green-700">
-          API 1회 호출로 {totalLoaded.toLocaleString()}개 로드 완료
-        </p>
+        <p className="text-green-700">API 1회 호출로 {totalLoaded.toLocaleString()}개 로드 완료</p>
       </div>
 
       {/* 실시간 디버그 패널 */}
@@ -74,7 +70,9 @@ const VirtualPage = () => {
           </div>
           <div>
             <span className="text-gray-400">현재 범위: </span>
-            <span className="text-yellow-400 font-bold">#{firstIndex + 1} ~ #{lastIndex + 1}</span>
+            <span className="text-yellow-400 font-bold">
+              #{firstIndex + 1} ~ #{lastIndex + 1}
+            </span>
           </div>
         </div>
 
@@ -94,10 +92,7 @@ const VirtualPage = () => {
       </div>
 
       {/* 스크롤 컨테이너 */}
-      <div
-        ref={scrollRef}
-        className="h-[80vh] overflow-auto"
-      >
+      <div ref={scrollRef} className="h-[80vh] overflow-auto">
         <div
           style={{
             height: `${virtualizer.getTotalSize()}px`,
