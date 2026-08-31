@@ -9,7 +9,12 @@ import Spinner from "../../components/Spinner";
 const ESTIMATED_POST_HEIGHT = 500;
 
 const VirtualPage = () => {
-  const { posts, loading, isError, totalLoaded } = usePostVirtual();
+  const {
+    posts, // feeds
+    loading,
+    isError,
+    totalLoaded, //feeds 총 갯수 (5000)
+  } = usePostVirtual();
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const virtualizer = useVirtualizer({
