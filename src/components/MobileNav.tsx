@@ -7,6 +7,7 @@ const navItems = [
   { to: "/infinite-virtual", label: "Inf+Virt" },
   { to: "/tds", label: "TDS" },
   { to: "/search-params", label: "Params" },
+  { to: "/tsr", label: "TSR", external: true },
 ];
 
 const MobileNav = () => {
@@ -15,16 +16,22 @@ const MobileNav = () => {
       <ul className="flex">
         {navItems.map((item) => (
           <li key={item.to} className="min-w-0 flex-1">
-            <NavLink
-              to={item.to}
-              className={({ isActive }) =>
-                `block truncate text-center py-3 text-xs transition-colors ${
-                  isActive ? "font-bold text-gray-900 bg-gray-50" : "text-gray-500"
-                }`
-              }
-            >
-              {item.label}
-            </NavLink>
+            {item.external ? (
+              <a href={item.to} className="block truncate text-center py-3 text-xs text-gray-500">
+                {item.label}
+              </a>
+            ) : (
+              <NavLink
+                to={item.to}
+                className={({ isActive }) =>
+                  `block truncate text-center py-3 text-xs transition-colors ${
+                    isActive ? "font-bold text-gray-900 bg-gray-50" : "text-gray-500"
+                  }`
+                }
+              >
+                {item.label}
+              </NavLink>
+            )}
           </li>
         ))}
       </ul>
