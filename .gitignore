@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Local tool state (session logs, harness state)
+.claude/
+.omc/
+test-results/
