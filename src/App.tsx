@@ -5,7 +5,9 @@ import OriginalPage from "./pages/original/OriginalPage";
 import TanstackPage from "./pages/tanstack/TanstackPage";
 import VirtualPage from "./pages/virtual/VirtualPage";
 import InfiniteVirtualPage from "./pages/infinite-virtual/InfiniteVirtualPage";
+import TdsPage from "./pages/tds/TdsPage";
 import "./App.css";
+import StockDetail from "./pages/tds/detail/StockDetail";
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
           <Route path="/tanstack" element={<TanstackPage />} />
           <Route path="/virtual" element={<VirtualPage />} />
           <Route path="/infinite-virtual" element={<InfiniteVirtualPage />} />
+          <Route path="/tds" element={<TdsPage />} />
+          <Route path="/tds/:id" element={<StockDetail />} />
         </Routes>
       </main>
 

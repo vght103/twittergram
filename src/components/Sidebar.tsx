@@ -5,6 +5,7 @@ const navItems = [
   { to: "/tanstack", label: "TanStack Query", description: "useInfiniteQuery" },
   { to: "/virtual", label: "Virtual Scroll", description: "react-virtual" },
   { to: "/infinite-virtual", label: "Infinite + Virtual", description: "무한 + 가상 조합" },
+  { to: "/tds", label: "스톡 검색", description: "목록 구현" },
 ];
 
 const Sidebar = () => {
@@ -22,9 +23,7 @@ const Sidebar = () => {
             to={item.to}
             className={({ isActive }) =>
               `block px-4 py-4 rounded-lg mb-1 transition-colors ${
-                isActive
-                  ? "bg-gray-100 font-semibold text-gray-900"
-                  : "text-gray-600 hover:bg-gray-50"
+                isActive ? "bg-gray-100 font-semibold text-gray-900" : "text-gray-600 hover:bg-gray-50"
               }`
             }
           >

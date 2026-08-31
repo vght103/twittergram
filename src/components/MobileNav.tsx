@@ -5,6 +5,7 @@ const navItems = [
   { to: "/tanstack", label: "TanStack" },
   { to: "/virtual", label: "Virtual" },
   { to: "/infinite-virtual", label: "Inf+Virt" },
+  { to: "/tds", label: "TDS" },
 ];
 
 const MobileNav = () => {
