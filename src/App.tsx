@@ -6,6 +6,7 @@ import TanstackPage from "./pages/tanstack/TanstackPage";
 import VirtualPage from "./pages/virtual/VirtualPage";
 import InfiniteVirtualPage from "./pages/infinite-virtual/InfiniteVirtualPage";
 import TdsPage from "./pages/tds/TdsPage";
+import SearchParamsPage from "./pages/search-params/SearchParamsPage";
 import "./App.css";
 import StockDetail from "./pages/tds/detail/StockDetail";
 
@@ -25,6 +26,7 @@ function App() {
           <Route path="/infinite-virtual" element={<InfiniteVirtualPage />} />
           <Route path="/tds" element={<TdsPage />} />
           <Route path="/tds/:id" element={<StockDetail />} />
+          <Route path="/search-params" element={<SearchParamsPage />} />
         </Routes>
       </main>
 

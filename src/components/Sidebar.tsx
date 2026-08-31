@@ -6,6 +6,7 @@ const navItems = [
   { to: "/virtual", label: "Virtual Scroll", description: "react-virtual" },
   { to: "/infinite-virtual", label: "Infinite + Virtual", description: "무한 + 가상 조합" },
   { to: "/tds", label: "스톡 검색", description: "목록 구현" },
+  { to: "/search-params", label: "URL 검색/필터", description: "useSearchParams" },
 ];
 
 const Sidebar = () => {
