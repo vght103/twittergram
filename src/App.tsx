@@ -7,6 +7,8 @@ import VirtualPage from "./pages/virtual/VirtualPage";
 import InfiniteVirtualPage from "./pages/infinite-virtual/InfiniteVirtualPage";
 import TdsPage from "./pages/tds/TdsPage";
 import SearchParamsPage from "./pages/search-params/SearchParamsPage";
+import NoticeBoardPage from "./pages/ws/NoticeBoardPage";
+import NoticeWritePage from "./pages/ws/NoticeWritePage";
 import "./App.css";
 import StockDetail from "./pages/tds/detail/StockDetail";
 
@@ -27,6 +29,8 @@ function App() {
           <Route path="/tds" element={<TdsPage />} />
           <Route path="/tds/:id" element={<StockDetail />} />
           <Route path="/search-params" element={<SearchParamsPage />} />
+          <Route path="/ws" element={<NoticeBoardPage />} />
+          <Route path="/ws/write" element={<NoticeWritePage />} />
         </Routes>
       </main>
 

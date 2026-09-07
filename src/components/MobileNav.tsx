@@ -8,6 +8,8 @@ const navItems = [
   { to: "/tds", label: "TDS" },
   { to: "/search-params", label: "Params" },
   { to: "/tsr", label: "TSR", external: true },
+  { to: "/ws", label: "공지" },
+  { to: "/ws/write", label: "등록" },
 ];
 
 const MobileNav = () => {

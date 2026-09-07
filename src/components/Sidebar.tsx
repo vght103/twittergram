@@ -8,6 +8,8 @@ const navItems = [
   { to: "/tds", label: "스톡 검색", description: "목록 구현" },
   { to: "/search-params", label: "URL 검색/필터", description: "useSearchParams" },
   { to: "/tsr", label: "TanStack Router", description: "validateSearch (타입 있는 검색)", external: true },
+  { to: "/ws", label: "공지 보기", description: "WebSocket 실시간 수신" },
+  { to: "/ws/write", label: "공지 등록", description: "WebSocket 실시간 발신" },
 ];
 
 const Sidebar = () => {
